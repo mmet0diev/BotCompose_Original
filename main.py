@@ -1,0 +1,366 @@
+import os
+import sys
+import OtherScripts.rmdir
+import OtherScripts.rm
+import OtherScripts.touch
+# Add the path to the Models directory to the system path
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(dir_path, "Models"))
+
+from Models.Bot import Bot
+
+from screeninfo import get_monitors
+
+def get_screen_resolution():
+    monitor = get_monitors()[0]  # Assuming the first monitor
+    width = monitor.width
+    height = monitor.height
+    return f"Screen res: x={width} y={height}"
+
+# Initialize a bot model
+bot = Bot()
+
+def intro() -> str:
+    return """
+        ||]]]]]]])        ========      ===================
+        ||       |)     ||        ||            ||
+        ||       |)     ||        ||            ||
+        ||       |      ||        ||            ||
+        ||]]]]]]|       ||        ||            ||
+        ||       |      ||        ||            ||
+        ||       |)     ||        ||            ||
+        ||       |)     ||        ||            ||
+        ||]]]]]]])        ========              ||
+
+           |==========     ========      |\\           /||   ||=======))       ========      ||==========      |========
+          ||             ||        ||    || \\        / ||   ||        ))    ||        ||    ||                |
+         ||              ||        ||    ||  \\      /  ||   ||        ))    ||        ||    ||                |
+        ||               ||        ||    ||    \\   /   ||   ||=======))     ||        ||    ||                |
+        ||               ||        ||    ||      \\/    ||   ||              ||        ||    ||=========||     |========
+        ||               ||        ||    ||            ||   ||              ||        ||               ||     |
+         ||              ||        ||    ||            ||   ||              ||        ||               ||     |
+          ||             ||        ||    ||            ||   ||              ||        ||               ||     |
+           |==========    ========       ||            ||   ||                ========       ==========||     |========
+    """ + "\n"
+
+
+# Read commands from .txt file
+def read_from_file(src_file: str):
+    print("Press 'esc' to stop command(s) execution.")
+    with open(src_file, "r") as f:
+        for line in f:
+            if bot.kb.check_key_pressed("esc"):
+                print("Execution stopped.")
+                break
+            if line != "":
+                command = line.strip().split(" ")
+                func = command[0]
+                args = command[1:]
+                match func:
+                    case "mv":
+                        x, y = map(float, args)
+                        bot.mv(x, y)
+                    case "clck":
+                        btn = args[0]
+                        bot.clck(btn)
+                    case "mvclck":
+                        x, y = map(float, args[:2])
+                        btn = args[2]
+                        bot.mvclck(x, y, btn)
+                    case "scroll":
+                        n = int(args[0])
+                        bot.scroll(n)
+                    case "press":
+                        key = args[0]
+                        bot.press(key)
+                    case "hld":
+                        comp = args[0]
+                        btn = args[1]
+                        if comp == 'mouse':
+                            bot.mouse_hld(btn=btn)
+                        elif comp == 'kb':
+                            bot.kb_hld(btn=btn)
+                    case "rel":
+                        comp = args[0]
+                        btn = args[1]
+                        if comp == 'mouse':
+                            bot.mouse_rel(btn=btn)
+                        elif comp == 'kb':
+                            bot.kb_rel(btn=btn)
+                    case "drag":
+                        if(len(args) == 4):
+                            x1 = int(args[0])
+                            y1 = int(args[1])
+                            x2 = int(args[2])
+                            y2 = int(args[3])
+                            bot.drag(x1, y1, x2, y2)
+                        elif(len(args) == 5):
+                            x1 = int(args[0])
+                            y1 = int(args[1])
+                            x2 = int(args[2])
+                            y2 = int(args[3])
+                            dur = int(args[4])
+                            bot.drag(x1, y1, x2, y2, dur)
+                        else:
+                            print("Invalid arguments passed.")
+                    case "wrt":
+                        text = " ".join(args)
+                        bot.wrt(text)
+                    case "sleep":
+                        secs = float(args[0])
+                        bot.sleep(secs)
+                    case "play":
+                        if args[0] == "mouse":
+                            bot.play_mouse()
+                        elif args[0] == "kb":
+                            bot.play_kb()
+                    case "repeat":
+                        reps = int(args[0])
+                        next_lines = int(args[1])
+                        bot.repeat_lines(f=f, reps=reps, n_lines=next_lines)
+                    case _:
+                        print(f"Invalid command(s)/syntax: {func}")
+            else:
+                print("Empty line")
+        f.close()
+
+
+# Manually issue commands from the terminal(similar to REPL / interactive mode)
+def manual_input():
+    cmd = ""
+    print("Manual commands input:\n [s | q | stop | quit] to stop manual mode.\n")
+    while True:
+        cmd = input("manual> ")
+        try:
+            cmds = cmd.strip().split(" ")
+            func = cmds[0]
+            args = cmds[1:]
+            match func:
+                    case "mv":
+                        x, y = map(float, args)
+                        bot.mv(x, y)
+                    case "clck":
+                        btn = args[0]
+                        bot.clck(btn)
+                    case "mvclck":
+                        x, y = map(float, args[:2])
+                        btn = args[2]
+                        bot.mvclck(x, y, btn)
+                    case "scroll":
+                        n = int(args[0])
+                        bot.scroll(n)
+                    case "press":
+                        btn = args[0]
+                        bot.press(btn=btn)
+                    case "hld":
+                        comp = args[0]
+                        btn = args[1]
+                        if comp == 'mouse':
+                            bot.mouse_hld(btn=btn)
+                        elif comp == 'kb':
+                            bot.kb_hld(btn=btn)
+                    case "rel":
+                        comp = args[0]
+                        btn = args[1]
+                        if comp == 'mouse':
+                            bot.mouse_rel(btn=btn)
+                        elif comp == 'kb':
+                            bot.kb_rel(btn=btn)
+                    case "drag":
+                        if(len(args) == 4):
+                            x1 = int(args[0])
+                            y1 = int(args[1])
+                            x2 = int(args[2])
+                            y2 = int(args[3])
+                            bot.drag(x1, y1, x2, y2)
+                        elif(len(args) == 5):
+                            x1 = int(args[0])
+                            y1 = int(args[1])
+                            x2 = int(args[2])
+                            y2 = int(args[3])
+                            dur = int(args[4])
+                            bot.drag(x1, y1, x2, y2, dur)
+                        else:
+                            print("Invalid arguments passed.")
+                    case "wrt":
+                        text = " ".join(args)
+                        bot.wrt(text)
+                    case "sleep":
+                        if len(args) == 0:
+                            bot.sleep()
+                        elif len(args) == 1:
+                            secs = args[0]
+                            bot.sleep(secs=secs)
+                    case "play":
+                        if args[0] == "mouse":
+                            bot.play_mouse()
+                        elif args[0] == "kb":
+                            bot.play_kb()
+                    case "repeat":
+                        if len(args) > 0:
+                            reps = int(args[0])
+                            bot.repeat_man(command=args[1:], reps=reps)
+                        else:
+                            print("Invalid number of args.")
+                    case "pos":
+                        print(bot.getPos())
+                    case "res":
+                        print(get_screen_resolution())
+                    case "q":
+                        break
+                    case "quit":
+                        break
+                    case "s":
+                        break
+                    case "stop":
+                        break
+                    case _:
+                        print(f"Invalid command/syntax: {func}")
+        except Exception as e:
+            print(f"Invalid commands syntax:\n{e}")
+
+
+def run():
+    print(intro())
+    print('"BotCompose" is a python program designed to "compose bots" or compose commands in order to automate common tasks.')
+    print(
+        "\noptions:\n"
+        "f, file - read commands from a src .txt file\n"
+        "recmouse - start recording mouse events\n"
+        "reckb - start recording keyboard events\n"
+        "playmouse - play the recorded mouse events'\n"
+        "playkb - play the recorded keyboard events'\n"
+        "m, man - enter commands manually(similar to running python interactive terminal)\n"
+        "h, help - Display general info about the tool\n"
+    )
+    # main program loop
+    while True:
+        top_lvl_cmd = input("> ").lower().strip()
+
+        if top_lvl_cmd == "f" or top_lvl_cmd == "file":
+            try:
+                src_file = input("Enter src file:\nfile path> ").strip().lower()
+                if os.path.isfile(f"{src_file}"):
+                    read_from_file(src_file)
+            except Exception as e:
+                print(f'Error {e}')
+        elif top_lvl_cmd == "recmouse":
+            file_path = input('Enter file path destination(leave blank to use default txt/mouse_events.txt)\n')
+            if(file_path == ""):
+                print("Recording mouse.\nPress 'esc'(default) to stop.")
+                bot.rec_mouse()
+                print("Recording stopped.")
+            else:
+                print("Recording mouse.\nPress 'esc'(default) to stop.")
+                bot.rec_mouse(file_path)
+                print("Recording stopped.")
+            
+        elif top_lvl_cmd == "reckb":
+            file_path = input('Enter file path destination(leave blank to use default txt/kb_events.txt)\n')
+            if(file_path == ""):
+                print("Recording keyboard.\nPress 'esc'(default) to stop.")
+                bot.rec_kb()
+                print("Recording stopped.")
+            else:
+                print("Recording keyboard.\nPress 'esc'(default) to stop.")
+                bot.rec_kb(file_path)
+                print("Recording stopped.")
+
+        elif top_lvl_cmd == "playmouse":
+            reps = input("Enter reps num: ")
+            if reps == "":
+                print(f"Playing mouse events:")
+                bot.play_mouse()
+                print("Finished.")
+            else:
+                try:
+                    reps_num = int(reps)
+                    print("Playing mouse events:\n")
+                    replay_mouse(reps=reps_num)
+                    print("Finished.")
+                except:
+                    print("Invalid reps arg.")
+        elif top_lvl_cmd == "playkb":
+            reps = input("Enter reps num: ")
+            if reps == "":
+                print(f"Playing keyboard events:\n")
+                bot.play_kb()
+                print("Finished.")
+            else:
+                try:
+                    reps_num = int(reps)
+                    print(f"Playing keyboard events:\n")
+                    replay_kb(reps=reps_num)
+                    print("Finished.")
+                except:
+                    print("Invalid reps arg.")
+        elif top_lvl_cmd == "m" or top_lvl_cmd == "man":
+            manual_input()
+        elif top_lvl_cmd == "h" or top_lvl_cmd == "help":
+            help()
+        elif top_lvl_cmd == "res" or top_lvl_cmd == "resolution":
+            print(get_screen_resolution())
+        elif top_lvl_cmd == "q" or top_lvl_cmd == "quit" or top_lvl_cmd == "exit":
+            print("Exited\n")
+            exit()
+        elif top_lvl_cmd.split(" ")[0] == "rm":
+            cmd_parts = top_lvl_cmd.split(" ")
+            OtherScripts.rm.delete_file(cmd_parts[1])
+        elif top_lvl_cmd.split(" ")[0] == "rmdir":
+            cmd_parts = top_lvl_cmd.split(" ")
+            OtherScripts.rmdir.delete_directory(cmd_parts[1])
+        elif top_lvl_cmd.split(" ")[0] == "touch" or top_lvl_cmd.split(" ")[0] == "create":
+            cmd_parts = top_lvl_cmd.split(" ")
+            if len(cmd_parts) == 2:
+                OtherScripts.touch.create_file(cmd_parts[1])
+            elif len(cmd_parts) == 3:
+                OtherScripts.touch.create_file(cmd_parts[1], cmd_parts[2])
+        else:
+            print('.')
+
+def replay_mouse(reps = 1):
+    for i in range(reps):
+        bot.play_mouse()
+
+def replay_kb(reps = 1):
+    for i in range(reps):
+        bot.play_kb()
+
+# The help "menu":
+def help():
+    print('\nWelcome to the help menu\n"'
+          'Bot Compose" is a python program designed to "compose" "bots" and automate various tasks\n'
+          'Using this tool, the user is able to control the mouse/keyboard in various ways using the\n'
+            'mouse/keyboard commands available from the bot model.\n'
+            'The most common functions the Model offers include the mouse functions:\n'
+        'mv(x, y), clck(btn=l r m), mvclck(x, y, btn),\n as well as keyboard functions:\n'
+        'press(btn), hld(btn), rel(btn), wrt(text), and other useful functions like sleep(time), record actions,\n'
+        'There are various ways these functions can be composed together to create a sequence of actions to be automated.'
+        'reading commands from a file example:\n'
+        'sleep 5\nmv 200 120\nsleep 1\nclck l\nclck l\nmvclck 340 215 l\nwrt Hello World!\npress tab\n my name is Jack.\n'
+        'The bot also has functions such as rec() for mouse/keyboard events recording, play() for playing recorded events,\n'
+        'repeat() for repeating a sequence of events/actions which can be utilized throught read_from_file or manual_input\n'
+        'more on them later.'
+    )
+    print(
+        "options:"
+        "f/file - read commands from a src .txt file\n"
+        "recmouse - start recording mouse events\n"
+        "reckb - start recording keyboard events\n"
+        "playmouse - replay recorded mouse events\n"
+        "playkb - replay recorded keyboard events\n"
+        "m/man - enter commands manually(similar to running python intractive terminal)\n"
+        "h/help - Display general info about the tool\n"
+        "rm [filepath] - Removes the file on the provided file path(if exists/is file)\n"
+        "rm [dirpath] - Removes the directory/folder on the provided path(if exists/is dir)\n"
+        "create/touch [file] \{text\} - Creates a file (and writes the text to it)"
+    )
+    print(
+        "This tool can be used in numerous ways and the effective usage of it is dependent on the user's imagination.")
+    print(
+        "The the core concept of this botcomposition/automation program is for it to execute 'commands' set by the user.\n"
+    )
+
+
+if __name__ == "__main__":
+    run()

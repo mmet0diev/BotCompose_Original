@@ -1,0 +1,241 @@
+sleep 3
+mvclck 38 632 l
+press enter
+sleep 4
+mvclck 960 280 l
+clck l
+press backspace
+wrt maxan1999
+press tab
+wrt passvvord69420
+press enter
+sleep 10
+mvclck 1048 400 l
+sleep 25
+press f12
+press f12
+sleep 2
+mvclck 1300 225 l
+sleep 2
+mvclck 1330 790 l
+sleep 11
+mvclck 1245 20 l
+sleep 1
+mvclck 760 699 l
+press esc
+sleep 10
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 325 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 425 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 525 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+mvclck 1245 20 l
+sleep 1
+mvclck 760 699 l
+press esc
+sleep 3
+-- repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 520 l
+
+
+sleep 5
+mvclck 960 280 l
+clck l
+press backspace
+wrt maxxxurt
+press tab
+wrt dj6paxanmixx
+press enter
+sleep 2.5
+mvclck 1048 400 l
+sleep 22
+press f12
+press f12
+sleep 2
+mvclck 1300 225 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+mvclck 1245 20 l
+sleep 1
+mvclck 760 699 l
+press esc
+sleep 5
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 325 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 425 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 525 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 520 l
+
+sleep 5
+mvclck 960 280 l
+clck l
+press backspace
+wrt maxxxurt
+press tab
+wrt dj6paxanmixx
+press enter
+sleep 3
+mvclck 1048 425 l
+
+sleep 4
+mvclck 960 280 l
+clck l
+press backspace
+wrt maxxxurt
+press tab
+wrt dj6paxanmixx
+press enter
+sleep 2.5
+mvclck 1048 400 l
+sleep 23
+press f12
+press f12
+sleep 2
+mvclck 1300 225 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+mvclck 1245 20 l
+sleep 1
+mvclck 760 699 l
+press esc
+sleep 5
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 325 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 425 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 3 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 430 l
+
+sleep 4
+mvclck 1300 525 l
+sleep 2
+mvclck 1330 790 l
+sleep 16
+repeat 2 3
+sleep 1
+mvclck 24 313 l
+press esc
+sleep 1
+press esc
+sleep 1
+mvclck 790 520 l
